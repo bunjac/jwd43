@@ -6,11 +6,9 @@ package jwd.wafepa.model;
  *
  */
 public class Activity {
-	
+
 	private Long id;
 	private String name;
-	
-	
 
 	public Activity() {
 		super();
@@ -26,7 +24,7 @@ public class Activity {
 		this.id = id;
 		this.name = name;
 	}
-	
+
 	/**
 	 * 
 	 * @return Activity identifier.
@@ -34,15 +32,16 @@ public class Activity {
 	public Long getId() {
 		return id;
 	}
-	
+
 	/**
 	 * Sets activity identifier.
+	 * 
 	 * @param id new identifier
- 	 */
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	/**
 	 * 
 	 * @return Name of the activity.
@@ -50,7 +49,7 @@ public class Activity {
 	public String getName() {
 		return name;
 	}
-	
+
 	/**
 	 * 
 	 * @param name New name of the activity.
@@ -58,6 +57,5 @@ public class Activity {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
+
 }
