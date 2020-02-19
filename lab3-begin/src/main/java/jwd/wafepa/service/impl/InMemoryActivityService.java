@@ -40,7 +40,7 @@ public class InMemoryActivityService implements ActivityService {
 	@Override
 	public Activity delete(Long id) {
 		Activity activity = activities.get(id);
-		if(activity!=null){
+		if (activity != null) {
 			activities.remove(id);
 		}
 		return activity;
@@ -49,47 +49,46 @@ public class InMemoryActivityService implements ActivityService {
 	@Override
 	public List<Activity> findByName(String name) {
 		List<Activity> ret = new ArrayList<>();
-		
-		for(Activity a : activities.values()){
-			if(name.equals(a.getName())){
+
+		for (Activity a : activities.values()) {
+			if (name.equals(a.getName())) {
 				ret.add(a);
 			}
 		}
-						
-		
+
 		return ret;
 	}
 
 	@Override
 	public List<Activity> save(List<Activity> activities) {
 		List<Activity> ret = new ArrayList<>();
-		
-		for(Activity a: activities){
-			//za svaku prosleđenu aktivnost pozivamo save
-			//metodu koju smo već napravili i testirali - 
-			//ona će sepobrinuti i za dodelu ID-eva 
-			//ako je to potrebno
+
+		for (Activity a : activities) {
+			// za svaku prosleđenu aktivnost pozivamo save
+			// metodu koju smo već napravili i testirali -
+			// ona će sepobrinuti i za dodelu ID-eva
+			// ako je to potrebno
 			Activity saved = save(a);
-			
-			//uspešno snimljene dodajemo u listu za vraćanje
-			if(saved!=null){
+
+			// uspešno snimljene dodajemo u listu za vraćanje
+			if (saved != null) {
 				ret.add(saved);
 			}
 		}
-		
+
 		return ret;
 	}
 
 	@Override
 	public void delete(List<Long> ids) {
-		for(Long id: ids){
-			//pozivamo postojeću metodu za svaki
+		for (Long id : ids) {
+			// pozivamo postojeću metodu za svaki
 			delete(id);
 		}
 	}
 
 	@PostConstruct
-	public void БилоШта(){
+	public void БилоШта() {
 		save(new Activity("Swimming"));
 		save(new Activity("Running"));
 	}

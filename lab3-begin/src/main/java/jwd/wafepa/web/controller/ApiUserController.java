@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import jwd.wafepa.model.User;
-import jwd.wafepa.model.User;
 import jwd.wafepa.service.UserService;
 
 @RestController
