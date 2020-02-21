@@ -1,16 +1,27 @@
 package jwd.wafepa.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * Models a physical activity.
  * 
  *
  */
+@Entity
+@Table(name = "tbl_activity")
 public class Activity {
-	
+
+	@Id
+	@GeneratedValue
 	private Long id;
+	@Column(length = 30, nullable = false)
 	private String name;
-	private String adminComment="Test";
-	
+	@Column(name = "adm_comment")
+	private String adminComment = "Test";
 
 	public Activity() {
 		super();
@@ -26,7 +37,7 @@ public class Activity {
 		this.id = id;
 		this.name = name;
 	}
-	
+
 	/**
 	 * 
 	 * @return Activity identifier.
@@ -34,15 +45,16 @@ public class Activity {
 	public Long getId() {
 		return id;
 	}
-	
+
 	/**
 	 * Sets activity identifier.
+	 * 
 	 * @param id new identifier
- 	 */
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	/**
 	 * 
 	 * @return Name of the activity.
@@ -50,7 +62,7 @@ public class Activity {
 	public String getName() {
 		return name;
 	}
-	
+
 	/**
 	 * 
 	 * @param name New name of the activity.
@@ -66,6 +78,5 @@ public class Activity {
 	public void setAdminComment(String adminComment) {
 		this.adminComment = adminComment;
 	}
-	
-	
+
 }
