@@ -58,9 +58,11 @@ public class JpaActivityService implements ActivityService {
 		return activityRepository.findByName(name);
 	}
 
-//	@PostConstruct
+	//@PostConstruct
 	public void БилоШта() {
 		save(new Activity("Swimming"));
 		save(new Activity("Running"));
+		save(new Activity("Walking"));
+		save(new Activity("Sleeping"));
 	}
 }
