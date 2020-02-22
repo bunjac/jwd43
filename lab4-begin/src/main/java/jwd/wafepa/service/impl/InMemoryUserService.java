@@ -10,7 +10,7 @@ import jwd.wafepa.service.UserService;
 
 import org.springframework.stereotype.Service;
 
-@Service
+//@Service
 public class InMemoryUserService implements UserService {
 
 	private Map<Long, User> data = new HashMap<>();
