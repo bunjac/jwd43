@@ -28,5 +28,7 @@ public class AddressDTO {
 	public void setNumber(String number) {
 		this.number = number;
 	}
+	
+	//TODO dodati usera, kao link ili id
 
 }

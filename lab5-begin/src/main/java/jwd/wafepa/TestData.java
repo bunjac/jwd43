@@ -17,20 +17,20 @@ public class TestData {
 
 	@Autowired
 	private ActivityService activityService;
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private AddressService addressService;
-	
+
 	@PostConstruct
 	public void init() {
 		activityService.save(new Activity("Swimming"));
 		activityService.save(new Activity("Running"));
-		
-		//pravimo 5 korisnika
-		for (int i = 1; i <= 5; i++) {
+
+		// pravimo 5 korisnika
+		for (int i = 1; i <= 25; i++) {
 			User user = new User();
 			user.setFirstName("First name " + i);
 			user.setLastName("Last name " + i);
@@ -38,16 +38,19 @@ public class TestData {
 			user.setPassword("123");
 			userService.save(user);
 
-			//za svakog korisnika pravimo po 3 adrese
+			// za svakog korisnika pravimo po 3 adrese
 			for (int j = 1; j <= 3; j++) {
 				Address address = new Address();
 				address.setNumber(Integer.toString(j));
 				address.setStreat("Laze nancica");
-				
+
+				addressService.save(address);
+
+				user.addAddress(address);
+				userService.save(user);
 				addressService.save(address);
 			}
 		}
-		
-		
+
 	}
 }
