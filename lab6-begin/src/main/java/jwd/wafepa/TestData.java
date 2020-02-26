@@ -30,7 +30,7 @@ public class TestData {
 		activityService.save(new Activity("Running"));
 		
 		//pravimo 5 korisnika
-		for (int i = 1; i <= 25; i++) {
+		for (int i = 1; i <= 2; i++) {
 			User user = new User();
 			user.setFirstName("First name " + i);
 			user.setLastName("Last name " + i);
