@@ -11,9 +11,13 @@
 
 <body>
     <div ng-controller="MyController">
-        <input type="text" ng-model="polje1" ng-change="kontrolisiDugme()"/>
-        </br>
+        <input type="text" ng-model="polje1" ng-change="kontrolisiDugme()" />
+        <br>
         <button ng-disabled="disableDugme" ng-click="prazniPolje()" type="button">Prazni polje</button>
+        <br>
+        <div ng-controller="MyControllerDrugi">
+            <input type="text" ng-model="polje1">
+        </div>
     </div>
 </body>
 

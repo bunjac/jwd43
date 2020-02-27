@@ -14,6 +14,10 @@ wafepaApp.controller("MyController", function ($scope) {
     };
 });
 
+wafepaApp.controller("MyControllerDrugi", function ($scope) {
+    $scope.polje1;
+});
+
 function proveriText($scope) {
     if ($scope.polje1 === "") {
         $scope.disableDugme = true;
