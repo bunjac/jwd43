@@ -1,9 +1,14 @@
 package jwd.wafepa.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -12,20 +17,22 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name="tbl_activity")
+@Table(name = "tbl_activity")
 public class Activity {
-	
+
 	@Id
 	@GeneratedValue
-	@Column(name="id")
+	@Column(name = "id")
 	private Long id;
-	
-	@Column(name="name")
+
+	@Column(name = "name")
 	private String name;
-	
-	@Column(name="adm_comment")
-	private String adminComment="test";
-	
+
+	@Column(name = "adm_comment")
+	private String adminComment = "test";
+
+	@OneToMany(mappedBy = "activity", cascade = CascadeType.ALL)
+	private List<Record> records = new ArrayList<Record>();
 
 	public Activity() {
 		super();
@@ -41,7 +48,7 @@ public class Activity {
 		this.id = id;
 		this.name = name;
 	}
-	
+
 	/**
 	 * 
 	 * @return Activity identifier.
@@ -49,15 +56,16 @@ public class Activity {
 	public Long getId() {
 		return id;
 	}
-	
+
 	/**
 	 * Sets activity identifier.
+	 * 
 	 * @param id new identifier
- 	 */
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	/**
 	 * 
 	 * @return Name of the activity.
@@ -65,7 +73,7 @@ public class Activity {
 	public String getName() {
 		return name;
 	}
-	
+
 	/**
 	 * 
 	 * @param name New name of the activity.
@@ -81,6 +89,5 @@ public class Activity {
 	public void setAdminComment(String adminComment) {
 		this.adminComment = adminComment;
 	}
-	
-	
+
 }
