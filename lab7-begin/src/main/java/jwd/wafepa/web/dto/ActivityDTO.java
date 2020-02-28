@@ -1,7 +1,10 @@
 package jwd.wafepa.web.dto;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 public class ActivityDTO {
 	private Long id;
+	@NotBlank
 	private String name;
 	
 	
