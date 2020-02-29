@@ -1,0 +1,22 @@
+<div ng-controller="EditUserCtrl">
+    <h1>Edit user</h1>
+    <form>
+        <table>
+            <tr>
+                <td><label for="email">Email</label></td>
+                <td><input id="email" type="text" ng-model="user.email"></td>
+            </tr>
+            <tr>
+                <td><label for="firstname">Firstname</label></td>
+                <td><input id="firstname" type="text" ng-model="user.firstname"></td>
+            </tr>
+            <tr>
+                <td><label for="lastname">Lastname</label></td>
+                <td><input id="lastname" type="text" ng-model="user.lastname"></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center;"><button ng-click="doEdit()">Save</button></td>
+            </tr>
+        </table>
+    </form>
+</div>

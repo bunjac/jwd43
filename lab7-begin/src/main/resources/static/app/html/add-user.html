@@ -1,0 +1,30 @@
+<div ng-controller="AddUserCtrl">
+    <h1>Add new user</h1>
+    <form>
+        <table>
+            <tr>
+                <td><label for="email">Email</label></td>
+                <td><input id="email" type="text" ng-model="user.email"></td>
+            </tr>
+            <tr>
+                <td><label for="firstname">Firstname</label></td>
+                <td><input id="firstname" type="text" ng-model="user.firstname"></td>
+            </tr>
+            <tr>
+                <td><label for="lastname">Lastname</label></td>
+                <td><input id="lastname" type="text" ng-model="user.lastname"></td>
+            </tr>
+            <tr>
+                <td><label for="password1">Password</label></td>
+                <td><input id="password1" type="password" ng-model="user.password"></td>
+            </tr>
+            <tr>
+                <td><label for="password2">Retype pass</label></td>
+                <td><input id="password2" type="password" ng-model="user.passwordConfirm"></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center;"><button ng-click="doAdd()">Add</button></td>
+            </tr>
+        </table>
+    </form>
+</div>

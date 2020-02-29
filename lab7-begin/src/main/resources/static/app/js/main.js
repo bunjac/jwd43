@@ -20,6 +20,15 @@ wafepaApp.config(['$routeProvider', function ($routeProvider) {
 		.when('/activities/add', {
 			templateUrl: '/app/html/add-activity.html'
 		})
+		.when('/users', {
+			templateUrl: '/app/html/users.html'
+		})
+		.when('/users/edit/:id', {
+			templateUrl: '/app/html/edit-user.html'
+		})
+		.when('/users/add', {
+			templateUrl: '/app/html/add-user.html'
+		})
 		.otherwise({
 			redirectTo: '/'
 		});
