@@ -4,11 +4,16 @@
 	<table>
 		<tr>
 			<th>Name</th>
+			<th>Actions</th>
 		</tr>
-		<tr ng-repeat="a in activities">
+		<tr ng-repeat="a in activities | orderBy:orderTip">
 			<td>{{a.name}}</td>
-			<td><button ng-click="goToEdit(a.id)">Edit</button></td>
-			<td><button ng-click="doDelete(a.id)">Delete</button></td>
+			<td>
+				<button ng-click="goToEdit(a.id)">Edit</button>
+				<button ng-click="doDelete(a.id)">Delete</button>
+				<button ng-click="doView(a.id)">View</button>
+			</td>
 		</tr>
 	</table>
+	<button ng-click="doReverse()">Change sort to: {{drugiSort}}</button>
 </div>

@@ -6,6 +6,19 @@ wafepaApp.controller("ActivitiesCtrl", function ($scope, $http, $location) {
 
 	$scope.activities = [];
 
+	$scope.orderTip = '+';
+	$scope.drugiSort = 'desc';
+
+	$scope.doReverse = function () {
+		if ($scope.orderTip == '-') {
+			$scope.orderTip = '+';
+			$scope.drugiSort = 'desc';
+		} else {
+			$scope.orderTip = '-';
+			$scope.drugiSort = 'asc';
+		}
+	}
+
 	var getActivities = function () {
 		var promise = $http.get(url);
 		promise.then(
@@ -36,6 +49,11 @@ wafepaApp.controller("ActivitiesCtrl", function ($scope, $http, $location) {
 				alert("neuspesan delete")
 			});
 	}
+
+	$scope.doView = function (id) {
+		$location.path("/activities/view/" + id);
+	}
+
 
 });
 
@@ -78,6 +96,8 @@ wafepaApp.controller("AddActivityCtrl", function ($scope, $http, $location) {
 	$scope.activity = {};
 	$scope.activity.name = "";
 
+	$scope.disabled = true;
+
 	$scope.doAdd = function () {
 		$http.post(url, $scope.activity).then(
 			function uspeh() {
@@ -86,5 +106,13 @@ wafepaApp.controller("AddActivityCtrl", function ($scope, $http, $location) {
 				alert("neuspesan add")
 			});
 	};
+
+	$scope.kontrolisiDugme = function () {
+		if ($scope.activity.name == "") {
+			$scope.disabled = true;
+		} else {
+			$scope.disabled = false;
+		}
+	}
 
 });

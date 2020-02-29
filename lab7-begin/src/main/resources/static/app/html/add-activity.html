@@ -2,8 +2,8 @@
 
     <form>
         <label for="name">Name</label>
-        <input id="name" type="text" ng-model="activity.name">    
-        <button ng-click="doAdd()">Add</button>    
+        <input id="name" type="text" ng-model="activity.name" ng-change="kontrolisiDugme()">    
+        <button ng-disabled="disabled" ng-click="doAdd()">Add</button>    
     </form>
 
 </div>
