@@ -2,7 +2,6 @@ package jwd.wafepa.service.impl;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;

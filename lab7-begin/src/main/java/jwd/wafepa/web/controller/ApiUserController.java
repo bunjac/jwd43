@@ -2,8 +2,6 @@ package jwd.wafepa.web.controller;
 
 import java.util.List;
 
-import javax.naming.directory.InvalidAttributeIdentifierException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -18,65 +16,67 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jwd.wafepa.model.Record;
 import jwd.wafepa.model.User;
+import jwd.wafepa.service.RecordService;
 import jwd.wafepa.service.UserService;
+import jwd.wafepa.support.RecordToRecordDTO;
 import jwd.wafepa.support.UserDTOToUser;
 import jwd.wafepa.support.UserToUserDTO;
+import jwd.wafepa.web.dto.RecordDTO;
 import jwd.wafepa.web.dto.UserDTO;
 import jwd.wafepa.web.dto.UserRegistrationDTO;
 
 @Controller
-@RequestMapping(value="/api/users")
+@RequestMapping(value = "/api/users")
 public class ApiUserController {
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private UserDTOToUser toUser;
-	
+
 	@Autowired
 	private UserToUserDTO toDto;
-	
 
-	@RequestMapping(method=RequestMethod.GET)
-	ResponseEntity<List<UserDTO>> getUser(@RequestParam(defaultValue = "0") int page){
+	@Autowired
+	private RecordService recordService;
+
+	@Autowired
+	private RecordToRecordDTO toDtoRecord;
+
+	@RequestMapping(method = RequestMethod.GET)
+	ResponseEntity<List<UserDTO>> getUser(@RequestParam(defaultValue = "0") int page) {
 		Page<User> usersPage = userService.findAll(page);
 		List<User> users = usersPage.getContent();
-		
-		if(users == null || users.isEmpty()){
+
+		if (users == null || users.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		
+
 		return new ResponseEntity<>(toDto.convert(users), HttpStatus.OK);
 	}
-	
-	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	ResponseEntity<UserDTO> getUser(@PathVariable Long id){
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
 		User user = userService.findOne(id);
-		if(user==null){
+		if (user == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<>(
-				toDto.convert(user),
-				HttpStatus.OK);
+		return new ResponseEntity<>(toDto.convert(user), HttpStatus.OK);
 	}
-	
-	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
-	ResponseEntity<User> delete(@PathVariable Long id){
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	ResponseEntity<User> delete(@PathVariable Long id) {
 		userService.delete(id);
-		
+
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
-	
-	@RequestMapping(method=RequestMethod.POST,
-					consumes="application/json")
-	public ResponseEntity<UserDTO> add(
-			@Validated
-			@RequestBody 
-			UserRegistrationDTO newUser){
-		if(newUser.getPassword()==null 
-				|| newUser.getPassword().isEmpty()
-				|| !newUser.getPassword().equals(newUser.getPasswordConfirm())){
+
+	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
+	public ResponseEntity<UserDTO> add(@Validated @RequestBody UserRegistrationDTO newUser) {
+		if (newUser.getPassword() == null || newUser.getPassword().isEmpty()
+				|| !newUser.getPassword().equals(newUser.getPasswordConfirm())) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		User user = new User();
@@ -84,39 +84,36 @@ public class ApiUserController {
 		user.setPassword(newUser.getPassword());
 		user.setFirstName(newUser.getFirstname());
 		user.setLastName(newUser.getLastname());
-		
+
 		User savedUser = userService.save(user);
-		
-		return new ResponseEntity<>(
-				toDto.convert(savedUser), 
-				HttpStatus.CREATED);
+
+		return new ResponseEntity<>(toDto.convert(savedUser), HttpStatus.CREATED);
 	}
-	
-	@ExceptionHandler({DataIntegrityViolationException.class})
-	public ResponseEntity<Void> handle(){
+
+	@ExceptionHandler({ DataIntegrityViolationException.class })
+	public ResponseEntity<Void> handle() {
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
-	
-	
-	
-	@RequestMapping(method=RequestMethod.PUT,
-			value="/{id}",
-			consumes="application/json")
-	public ResponseEntity<UserDTO> edit(
-			@RequestBody UserDTO user,
-			@PathVariable Long id){
-		
-		if(id!=user.getId()){
+
+	@RequestMapping(method = RequestMethod.PUT, value = "/{id}", consumes = "application/json")
+	public ResponseEntity<UserDTO> edit(@RequestBody UserDTO user, @PathVariable Long id) {
+
+		if (id != user.getId()) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		
+
 		User persisted = userService.save(toUser.convert(user));
-		
-		return new ResponseEntity<>(
-				toDto.convert(persisted),
-				HttpStatus.OK);
+
+		return new ResponseEntity<>(toDto.convert(persisted), HttpStatus.OK);
 	}
-	
-	
-	
+
+	@RequestMapping(value = "/{id}/records", method = RequestMethod.GET)
+	ResponseEntity<List<RecordDTO>> getRecords(@PathVariable Long id) {
+		//TODO mozda proveriti da li postoji user pa vratiti status ako ne postoji
+		List<Record> records = recordService.findByUserId(id);
+
+		return new ResponseEntity<List<RecordDTO>>(toDtoRecord.convert(records), HttpStatus.OK);
+
+	}
+
 }
