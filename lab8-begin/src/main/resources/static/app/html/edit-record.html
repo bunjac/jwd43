@@ -16,6 +16,20 @@
 		</div>
 		
 		<!-- Omogućiti promenu prikazanih, vezanih korisnika i aktivnosti -->
+		<div class="form-group">
+			<label for="ractivity">Activity</label>
+			<select id="ractivity" class="form-control" ng-model="record.activityId">
+				<option ng-repeat="a in activities" value="{{a.id}}" ng-selected="a.id == record.activityId">{{a.name}}</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="ruser">User</label>
+			<select ng-model="record.userId" id="ruser" class="form-control" >
+				<option ng-repeat="u in users" value="{{u.id}}" ng-selected="u.id == record.userId">{{u.firstname}}</option>
+			</select>
+		</div>
+
+
 		
 		<button class="btn btn-secondary" ng-click="doEdit()">Edit</button>
 	</form>
