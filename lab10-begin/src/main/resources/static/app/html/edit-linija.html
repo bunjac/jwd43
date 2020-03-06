@@ -1,0 +1,36 @@
+<div ng-controller="EditLinijaCtrl">
+
+	<h1>Dodavanje linije</h1>
+
+	<form>
+
+		<div class="form-group">
+			<label for="brMesta">Broj mesta</label>
+			<input id="brMesta" class="form-control" type="text" name="" ng-model="newLinija.brojMesta">
+		</div>
+		<div class="form-group">
+			<label for="cenaKarte">Cena karte</label>
+			<input id="cenaKarte" class="form-control" type="text" name="" ng-model="newLinija.cenaKarte">
+		</div>
+		<div class="form-group">
+			<label for="destinacija">Destinacija</label>
+			<input id="destinacija" class="form-control" type="text" name="" ng-model="newLinija.destinacija">
+		</div>
+		<div class="form-group">
+			<label for="vremePolaska">Vreme polaska</label>
+			<input id="vremePolaska" class="form-control" type="text" name="" ng-model="newLinija.vremePolaska">
+		</div>
+		<div class="form-group">
+			<label for="prevoznikId">Prevoznik</label>
+			<select id="prevoznikId" class="custom-select" name="" ng-model="newLinija.prevoznikId">
+				<option ng-repeat="p in prevoznici" value="{{p.id}}" ng-selected="p.id == newLinija.prevoznikId">{{p.naziv}}</option>
+			</select>
+		</div>
+
+		<button type="button" class="btn btn-primary" ng-click="doSave()">Sacuvaj</button>
+
+	</form>
+	
+
+
+</div>

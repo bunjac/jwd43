@@ -1,0 +1,104 @@
+<div ng-controller="AddLinijaCtrl">
+
+	<h1>Dodavanje linije</h1>
+
+	<form>
+
+		<div class="form-group">
+			<label for="brMesta">Broj mesta</label>
+			<input id="brMesta" class="form-control" type="text" name="" ng-model="newLinija.brojMesta">
+		</div>
+		<div class="form-group">
+			<label for="cenaKarte">Cena karte</label>
+			<input id="cenaKarte" class="form-control" type="text" name="" ng-model="newLinija.cenaKarte">
+		</div>
+		<div class="form-group">
+			<label for="destinacija">Destinacija</label>
+			<input id="destinacija" class="form-control" type="text" name="" ng-model="newLinija.destinacija">
+		</div>
+		<div class="form-group">
+			<label for="vremePolaska">Vreme polaska</label>
+			<input id="vremePolaska" class="form-control" type="text" name="" ng-model="newLinija.vremePolaska">
+		</div>
+		<div class="form-group">
+			<label for="prevoznikId">Prevoznik</label>
+			<select id="prevoznikId" class="custom-select" name="" ng-model="newLinija.prevoznikId">
+				<option ng-repeat="p in prevoznici" value="{{p.id}}">{{p.naziv}}</option>
+			</select>
+		</div>
+
+		<button type="button" class="btn btn-primary" ng-click="doAdd()">Dodaj</button>
+
+	</form>
+
+	<div>
+
+		<h2>Pretraga</h2>
+
+		<div class="form-group">
+			<label for="destinacija">Destinacija</label>
+			<input id="destinacija" class="form-control" type="text" name="" ng-model="search.destinacija">
+		</div>
+		<div class="form-group">
+			<label for="prevoznikId">Prevoznik</label>
+			<select id="prevoznikId" class="custom-select" name="" ng-model="search.prevoznikId">
+				<option value=""></option>
+				<option ng-repeat="p in prevoznici" value="{{p.id}}">{{p.naziv}}</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="cenaKarte">Cena karte</label>
+			<input id="cenaKarte" class="form-control" type="text" name="" ng-model="search.cenaKarte">
+		</div>
+		<button type="button" class="btn btn-primary" ng-click="doSearch()">Pretrazi</button>
+
+	</div>
+
+
+	<div>
+
+		<div class="btn-group float-right" style="margin-bottom:5px">
+			<button ng-disabled="pageNum == 0" ng-click="changePage(-1)" class="btn btn-info">Previous</button>
+			<button ng-disabled="pageNum == totalPages-1 " ng-click="changePage(1)" class="btn btn-info">Next</button>
+		</div>
+		<div class="form-group float-right">
+			<select id="my-select" class="custom-select" name="" ng-model="rowsPerPage" ng-change="doSearch()">
+				<option ng-repeat="o in opcije" value="{{o}}" ng-selected="rowsPerPage == o">{{o}}</option>
+			</select>
+		</div>
+
+		<table class="table table-bordered table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th>Broj mesta</th>
+					<th>Cena karte</th>
+					<th>Vreme polaska</th>
+					<th>Destinacija</th>
+					<th>Prevoznik</th>
+					<th>Akcije</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="l in linije">
+					<td>{{l.brojMesta}}</td>
+					<td>{{l.cenaKarte}}</td>
+					<td>{{l.vremePolaska}}</td>
+					<td>{{l.destinacija}}</td>
+					<td>{{l.prevoznikNaziv}}</td>
+					<td>
+						<button class="btn btn-warning" ng-click="goToEdit(l.id)">
+							<i class="fa fa-pencil"></i>
+						</button>
+
+						<button type="button" class="btn btn-primary" ng-click="Rezervisi(l.id)"
+							ng-disabled="l.brojMesta==0">Rezervisi</button>
+
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+
+
+</div>
