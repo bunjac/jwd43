@@ -61,16 +61,21 @@ public class JpaLinijaService implements LinijaService {
 	@Override
 	public Rezervacija reserve(Long id) {
 		Linija linija = findOne(id);
-
+		
 		if (linija != null) {
 			Rezervacija rezervacija = null;
-			if (true) {
+			if (linija.getBrojMesta() > 0) {
+				rezervacija = new Rezervacija();
+				rezervacija.setLinija(linija);
+				rezervacijaRepository.save(rezervacija);
 
+				linija.setBrojMesta(linija.getBrojMesta() - 1);
+				linijaRepository.save(linija);
 			}
 
 			return rezervacija;
 		} else {
-			throw new IllegalArgumentException("Tried to reserve a ticket for non-existant line");
+			throw new IllegalArgumentException("Nepostojeca linija");
 		}
 	}
 }

@@ -36,8 +36,8 @@
 		<h2>Pretraga</h2>
 
 		<div class="form-group">
-			<label for="destinacija">Destinacija</label>
-			<input id="destinacija" class="form-control" type="text" name="" ng-model="search.destinacija">
+			<label for="destinacijaP">Destinacija</label>
+			<input id="destinacijaP" class="form-control" type="text" name="" ng-model="search.destinacija">
 		</div>
 		<div class="form-group">
 			<label for="prevoznikId">Prevoznik</label>
@@ -47,8 +47,8 @@
 			</select>
 		</div>
 		<div class="form-group">
-			<label for="cenaKarte">Cena karte</label>
-			<input id="cenaKarte" class="form-control" type="text" name="" ng-model="search.cenaKarte">
+			<label for="cenaKarteP">Cena karte</label>
+			<input id="cenaKarteP" class="form-control" type="text" name="" ng-model="search.cenaKarte">
 		</div>
 		<button type="button" class="btn btn-primary" ng-click="doSearch()">Pretrazi</button>
 
@@ -59,7 +59,8 @@
 
 		<div class="btn-group float-right" style="margin-bottom:5px">
 			<button ng-disabled="pageNum == 0" ng-click="changePage(-1)" class="btn btn-info">Previous</button>
-			<button ng-disabled="pageNum == totalPages-1 " ng-click="changePage(1)" class="btn btn-info">Next</button>
+			<button ng-disabled="pageNum >= (totalPages - 1)" ng-click="changePage(1)"
+				class="btn btn-info">Next</button>
 		</div>
 		<div class="form-group float-right">
 			<select id="my-select" class="custom-select" name="" ng-model="rowsPerPage" ng-change="doSearch()">
@@ -93,6 +94,7 @@
 						<button type="button" class="btn btn-primary" ng-click="Rezervisi(l.id)"
 							ng-disabled="l.brojMesta==0">Rezervisi</button>
 
+						<button type="button" class="btn btn-danger" ng-click="doDelete(l.id)">Obrisi</button>
 					</td>
 				</tr>
 			</tbody>

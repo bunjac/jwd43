@@ -84,6 +84,18 @@ wafepaApp.controller("AddLinijaCtrl", function ($scope, $http, $location) {
 		$location.path("/linije/edit/" + id);
 	}
 
+	$scope.doDelete = function (id) {
+		$http.delete("/api/linije/"+id).then(
+			function uspeh(result) {
+				alert("uspesno brisanje linija");
+				getLinije();
+			},
+			function neuspeh(result) {
+				alert("neuspesno brisanje linija");
+			}
+		);
+	}
+
 	$scope.doSearch = function () {
 		$scope.pageNum = 0;
 		getLinije();
@@ -95,7 +107,15 @@ wafepaApp.controller("AddLinijaCtrl", function ($scope, $http, $location) {
 	}
 
 	$scope.Rezervisi = function(id){
-		
+		$http.post("/api/linije/"+id).then(
+			function uspeh(result) {
+				alert("uspesno rezervisanje linija");
+				getLinije();
+			},
+			function neuspeh(result) {
+				alert("neuspesno rezervisanje");
+			}
+		);
 	}
 
 });

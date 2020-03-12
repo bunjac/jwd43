@@ -1,11 +1,15 @@
 package jwd.test.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Linija {
@@ -29,6 +33,9 @@ public class Linija {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Prevoznik prevoznik;
+
+	@OneToMany(mappedBy = "linija")
+	private List<Rezervacija> rezervacije = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -79,6 +86,21 @@ public class Linija {
 		if (!prevoznik.getLinije().contains(this)) {
 			prevoznik.getLinije().add(this);
 		}
+	}
+
+	public List<Rezervacija> getRezervacije() {
+		return rezervacije;
+	}
+
+	public void setRezervacije(List<Rezervacija> rezervacije) {
+		this.rezervacije = rezervacije;
+	}
+
+	public void addRezervacija(Rezervacija rez) {
+		if (!rez.getLinija().equals(this)) {
+			rez.setLinija(this);
+		}
+		this.getRezervacije().add(rez);
 	}
 
 }

@@ -18,11 +18,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import jwd.test.model.Linija;
+import jwd.test.model.Rezervacija;
 import jwd.test.service.LinijaService;
 import jwd.test.support.LinijaDTOToLinija;
 import jwd.test.support.LinijaToLinijaDTO;
-import jwd.test.support.Model3ToModel3DTO;
+import jwd.test.support.RezervacijaToRezervacijaDTO;
 import jwd.test.web.dto.LinijaDTO;
+import jwd.test.web.dto.RezervacijaDTO;
 
 @RestController
 @RequestMapping(value = "/api/linije")
@@ -34,10 +36,13 @@ public class ApiLinijaController {
 	private LinijaToLinijaDTO toDTO;
 
 	@Autowired
-	private Model3ToModel3DTO toLinijaDTO;
+	private RezervacijaToRezervacijaDTO toLinijaDTO;
 
 	@Autowired
 	private LinijaDTOToLinija toLinija;
+
+	@Autowired
+	private RezervacijaToRezervacijaDTO toRezDTO;
 
 	@RequestMapping(method = RequestMethod.GET)
 	ResponseEntity<List<LinijaDTO>> get(@RequestParam(required = false) String destinacija,
@@ -90,6 +95,17 @@ public class ApiLinijaController {
 		}
 		Linija persisted = linijaService.save(toLinija.convert(linijaDTO));
 		return new ResponseEntity<>(toDTO.convert(persisted), HttpStatus.OK);
+	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "/{id}")
+	public ResponseEntity<RezervacijaDTO> rezervisi(@PathVariable(value = "id") Long linijaId) {
+		Rezervacija rez = linijaService.reserve(linijaId);
+
+		if (rez != null) {
+			return new ResponseEntity<RezervacijaDTO>(toRezDTO.convert(rez), HttpStatus.CREATED);
+		} else {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 	}
 
 	@ExceptionHandler(value = DataIntegrityViolationException.class)
